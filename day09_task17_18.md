@@ -140,3 +140,5 @@ root@new:/tmp/task017/scenario6#
 execute the monitoring script: ./bashscript.sh
 
 It is working.
+
+<img width="653" height="161" alt="Scenrario3_c" src="https://github.com/user-attachments/assets/141e8e7b-ac64-407c-9e20-f3cc00f29dc4" />
