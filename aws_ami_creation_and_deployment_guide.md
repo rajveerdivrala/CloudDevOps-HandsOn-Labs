@@ -19,6 +19,8 @@ To capture the current state, configuration, and files of an existing EC2 instan
 * **Result:** AWS initiates the image creation process in the background (taking EBS snapshots). Once complete, you will receive your unique AMI ID.
 * **Created AMI ID:** `ami-0abd3ffdeb666e76f`
 
+<img width="944" height="440" alt="25-10-2026_a" src="https://github.com/user-attachments/assets/f33168f6-1f1c-48b6-8a15-72baca761fdd" />
+
 ---
 
 ## Part 2: Launching a New Instance from the Custom AMI
@@ -33,6 +35,11 @@ To spin up a brand new EC2 instance using your newly created custom image:
    * Select or create your **Key Pair** (`.pem` or `.ppk`).
    * Configure **Network Settings** to allow inbound traffic (e.g., check **Allow HTTP traffic from the internet** and **Allow HTTPS traffic from the internet**).
 5. Click **Launch instance**.
+
+<img width="1918" height="934" alt="25-10-2026_b" src="https://github.com/user-attachments/assets/06c9e6e6-0e71-47f0-ac0a-93c6287cfada" />
+
+<img width="1918" height="951" alt="25-10-2026_c" src="https://github.com/user-attachments/assets/104327d2-6741-4764-8abe-856762e0bb22" />
+
 
 * **Result:** AWS provisions a new virtual machine pre-configured with the exact state captured in your custom AMI.
 * **Created Instance ID:** `i-0c3e19ab552e9ff17`
