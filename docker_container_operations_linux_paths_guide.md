@@ -187,3 +187,10 @@ docker exec -it <container_id> bash   # or sh for Alpine
 # 7. Stop the container when done
 docker stop <container_id>
 ```
+
+
+
+
+
+
+<img width="670" height="367" alt="25-11-2026_a" src="https://github.com/user-attachments/assets/dca72176-6b79-4bb1-90f0-1f4ba0717a0e" />
