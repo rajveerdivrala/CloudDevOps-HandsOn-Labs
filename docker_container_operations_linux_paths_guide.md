@@ -194,3 +194,44 @@ docker stop <container_id>
 
 
 <img width="670" height="367" alt="25-11-2026_a" src="https://github.com/user-attachments/assets/dca72176-6b79-4bb1-90f0-1f4ba0717a0e" />
+
+
+
+
+---
+
+## `docker run --rm` vs. `docker exec` (Executing From Outside the Container)
+
+Both commands run from the host terminal (outside the container) to execute commands inside a container environment, but they target different objects and manage container lifecycle differently.
+
+### Key Differences
+
+* **Target:**
+  * `docker run --rm <image_name> <command>` targets an **Image** (e.g., `ubuntu`, `nginx`).
+  * `docker exec <container_id_or_name> <command>` targets an **already running Container** (`Up` state in `docker ps`).
+* **Container State & Creation:**
+  * `docker run --rm` always creates a **brand-new container**, starts it, runs the command, and exits. It cannot target an existing stopped (`Exited`) container from `docker ps -a`.
+  * `docker exec` requires the target container to already be **running (`Up`)**. If a container is stopped, start it first with `docker start <container_id_or_name>`.
+* **Post-Execution Behavior & Data Changes:**
+  * `docker run --rm` **automatically deletes** the temporary container once the command finishes (`--rm`), so it does not remain in `docker ps -a` and changes made inside it are discarded.
+  * `docker exec` leaves the container **running** as-is, and any files or changes created inside that container persist across sessions.
+
+### Side-by-Side Comparison
+
+| Feature | `docker run --rm <image> <command>` | `docker exec <container_id> <command>` |
+| :--- | :--- | :--- |
+| **Target** | Image | Already running Container (`Up`) |
+| **Container Lifecycle** | Creates + starts a new temporary container | Attaches/executes inside an existing live container |
+| **Prerequisite State** | Works directly from an image | Container must already be running (`docker start` first if stopped) |
+| **After Command Finishes** | Auto-removed (`--rm`), not listed in `docker ps -a` | Container stays running (`Up`) |
+| **Data / State Changes** | Temporary; removed with the container | Persistent within the container's filesystem |
+
+### Examples
+
+```bash
+# Run a one-off command in a fresh temporary container and auto-delete it
+docker run --rm ubuntu ls -la /etc
+
+# Run a command inside an existing running container without deleting it
+docker exec <container_id_or_name> python3 --version
+```
