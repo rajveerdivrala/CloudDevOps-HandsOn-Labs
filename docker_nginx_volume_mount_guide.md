@@ -8,7 +8,7 @@ This guide explains how to host a static website (such as a digital marketing ag
 
 - **Host VM Directory:** `/home/ravi/docker-nginx/html` (stores your local `index.html` file)
 - **Container Directory:** `/usr/share/nginx/html` (default document root where Nginx looks for web files)
-- **Port Mapping:** Host VM port `8080` $\rightarrow$ Container port `80`
+- **Port Mapping:** Host VM port `80` $\rightarrow$ Container port `80`
 - **Container Name:** `ravi` (optional `--name` flag for easy identification)
 - **Execution Mode:** Detached (`-d`) running in the background
 
@@ -65,7 +65,7 @@ Save and exit `vi`:
 Run the following command to pull the `nginx` image (if not already available locally) and launch the container:
 
 ```bash
-docker run --name ravi -d -p 8080:80 -v /home/ravi/docker-nginx/html:/usr/share/nginx/html nginx
+docker run --name ravi -d -p 80:80 -v /home/ravi/docker-nginx/html:/usr/share/nginx/html nginx
 ```
 
 *(Note: If you omit `--name ravi`, Docker automatically assigns a random container name.)*
@@ -79,7 +79,7 @@ docker run --name ravi -d -p 8080:80 -v /home/ravi/docker-nginx/html:/usr/share/
 | `docker run` | Creates and starts a new container from the specified Docker image. |
 | `--name ravi` | Assigns a custom name (`ravi`) to the container for easier tracking and management. |
 | `-d` | Runs the container in **detached mode** (in the background) so your terminal remains free. |
-| `-p 8080:80` | **Port mapping** (`<HOST_PORT>:<CONTAINER_PORT>`). Maps port `8080` on the Host VM to port `80` inside the Nginx container. |
+| `-p 80:80` | **Port mapping** (`<HOST_PORT>:<CONTAINER_PORT>`). Maps port `80` on the Host VM to port `80` inside the Nginx container. |
 | `-v /home/ravi/docker-nginx/html:/usr/share/nginx/html` | **Volume (bind) mount**. Mounts the host directory onto Nginx's document root so Nginx serves your host's `index.html` file without modifying the base image. |
 | `nginx` | The official Docker image used to create the container. |
 
@@ -91,14 +91,14 @@ docker run --name ravi -d -p 8080:80 -v /home/ravi/docker-nginx/html:/usr/share/
    ```bash
    docker ps
    ```
-   Verify that the container status shows `Up` and the ports show `0.0.0.0:8080->80/tcp`.
+   Verify that the container status shows `Up` and the ports show `0.0.0.0:80->80/tcp`.
 
 2. **Access the website in a browser:**
    Open your browser and visit:
    ```text
-   http://<VM-PUBLIC-IP>:8080
+   http://<VM-PUBLIC-IP>:80
    ```
-   *(Ensure that inbound traffic on TCP port `8080` is allowed in your cloud VM's firewall or security group.)*
+   *(Ensure that inbound traffic on TCP port `80` is allowed in your cloud VM's firewall or security group.)*
 
 ---
 
