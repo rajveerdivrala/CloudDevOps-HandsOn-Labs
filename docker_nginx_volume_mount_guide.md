@@ -6,7 +6,7 @@ This guide explains how to host a static website (such as a digital marketing ag
 
 ## Architecture Overview
 
-- **Host VM Directory:** `/home/ravi/docker-nginx/html` (stores your local `index.html` file)
+- **Host VM Directory:** `~/docker-nginx/html` (stores your local `index.html` file)
 - **Container Directory:** `/usr/share/nginx/html` (default document root where Nginx looks for web files)
 - **Port Mapping:** Host VM port `80` $\rightarrow$ Container port `80`
 - **Container Name:** `ravi` (optional `--name` flag for easy identification)
@@ -20,19 +20,19 @@ This guide explains how to host a static website (such as a digital marketing ag
 Use `mkdir -p` to create both the parent directory (`docker-nginx`) and the subdirectory (`html`) in a single command. The `-p` flag ensures parent directories are created automatically and prevents errors if the folder already exists.
 
 ```bash
-mkdir -p /home/ravi/docker-nginx/html
+mkdir -p ~/docker-nginx/html
 ```
 
 Navigate into the newly created directory:
 
 ```bash
-cd /home/ravi/docker-nginx/html
+cd ~/docker-nginx/html
 ```
 
 ---
 
 ### Step 2: Create the `index.html` File Using `vi`
-Create and open `index.html` inside `/home/ravi/docker-nginx/html`:
+Create and open `index.html` inside `~/docker-nginx/html`:
 
 ```bash
 vi index.html
@@ -65,7 +65,7 @@ Save and exit `vi`:
 Run the following command to pull the `nginx` image (if not already available locally) and launch the container:
 
 ```bash
-docker run --name ravi -d -p 80:80 -v /home/ravi/docker-nginx/html:/usr/share/nginx/html nginx
+docker run --name ravi -d -p 80:80 -v ~/docker-nginx/html:/usr/share/nginx/html nginx
 ```
 
 *(Note: If you omit `--name ravi`, Docker automatically assigns a random container name.)*
@@ -80,7 +80,7 @@ docker run --name ravi -d -p 80:80 -v /home/ravi/docker-nginx/html:/usr/share/ng
 | `--name ravi` | Assigns a custom name (`ravi`) to the container for easier tracking and management. |
 | `-d` | Runs the container in **detached mode** (in the background) so your terminal remains free. |
 | `-p 80:80` | **Port mapping** (`<HOST_PORT>:<CONTAINER_PORT>`). Maps port `80` on the Host VM to port `80` inside the Nginx container. |
-| `-v /home/ravi/docker-nginx/html:/usr/share/nginx/html` | **Volume (bind) mount**. Mounts the host directory onto Nginx's document root so Nginx serves your host's `index.html` file without modifying the base image. |
+| `-v ~/docker-nginx/html:/usr/share/nginx/html` | **Volume (bind) mount**. Mounts the host directory onto Nginx's document root so Nginx serves your host's `index.html` file without modifying the base image. |
 | `nginx` | The official Docker image used to create the container. |
 
 ---
@@ -128,5 +128,5 @@ docker run --name ravi -d -p 80:80 -v /home/ravi/docker-nginx/html:/usr/share/ng
 
 ## Key Takeaways
 
-- **Live Updates Without Rebuilding:** Any edits saved to `/home/ravi/docker-nginx/html/index.html` on the Host VM are immediately served by Nginx upon refreshing the browser.
+- **Live Updates Without Rebuilding:** Any edits saved to `~/docker-nginx/html/index.html` on the Host VM are immediately served by Nginx upon refreshing the browser.
 - **Base Image Remains Clean:** Volume mounting overlays the host folder onto `/usr/share/nginx/html` at runtime without permanently altering the underlying `nginx` Docker image.
